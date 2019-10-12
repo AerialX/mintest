@@ -1,0 +1,28 @@
+[package]
+name = "mintest"
+version = "0.1.0"
+edition = "2018"
+
+categories = ["development-tools::testing", "embedded", "no-std"]
+
+[dependencies]
+mintest-impl = { version = "=0.1.0", path = "./impl" }
+cortex-m-semihosting = { version = "^0.3.5", optional = true }
+semihosting = { version = "^0.1.0", git = "https://github.com/AerialX/semihosting.rs", optional = true }
+color-backtrace = { version = "^0.2.3", optional = true }
+linkme = { version = "^0.1.6", optional = true }
+
+[[test]]
+name = "tests_noharness"
+harness = false
+
+[[test]]
+name = "tests_harness"
+
+[features]
+default = ["linkme"]
+unstable = ["mintest-impl/unstable"]
+unstable-test = ["mintest-impl/unstable-test"]
+test = ["mintest-impl/test", "std"]
+alloc = []
+std = ["alloc"]
